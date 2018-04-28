@@ -137,6 +137,7 @@ include_directories(
 
 
 add_executable(explore src/explore.cpp)
+add_executable(tag_detect src/tag_detect.cpp)
 
 
 ## Rename C++ executable without prefix
@@ -156,6 +157,7 @@ add_executable(explore src/explore.cpp)
 
 
 target_link_libraries(explore ${catkin_LIBRARIES})
+target_link_libraries(tag_detect ${catkin_LIBRARIES})
 
 
 #############
