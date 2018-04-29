@@ -3,6 +3,7 @@
 #include <geometry_msgs/PointStamped.h>
 #include <actionlib/client/simple_action_client.h>
 #include <frontier_exploration/ExploreTaskAction.h>
+#include <geometry_msgs/Twist.h>
 
 int main(int argc, char **argv)
 {
@@ -29,6 +30,22 @@ int main(int argc, char **argv)
     goal.explore_center.point.z = 0.0;
     goal.explore_boundary = boundary;
     ac.sendGoal(goal);
+
+    ros::Publisher pubTwist = nh.advertise<geometry_msgs::Twist>("/husky_velocity_controller/cmd_vel", 1000);
+
+    geometry_msgs::Twist twistMsg;
+
+    twistMsg.linear.x = -5.0;
+
+    while(nh.ok()){
+        if(ac.getState().isDone()){
+            ROS_INFO_STREAM("I'm stuck! Recovering...");
+            pubTwist.publish(twistMsg);
+            pubTwist.publish(twistMsg);
+            pubTwist.publish(twistMsg);
+            ac.sendGoal(goal);
+        }
+    }
 
     return 0;
 }
