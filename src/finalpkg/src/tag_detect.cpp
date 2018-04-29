@@ -35,9 +35,9 @@ void camera_callback(const logical_camera_plugin::logicalImage &image)
 
         ROS_INFO_STREAM("Found tag: " << image.modelName << '\n' << tag_pose);
 
-        ROS_INFO_STREAM("\n-----DEBUG-----" <<
-                        "ROBOT_POSE:\n" << robot_pose << "\n\n" <<
-                        "TAG_POSE:\n" << image << "\n");
+        ROS_INFO_STREAM("\n-----DEBUG-----\n" <<
+                        "ROBOT_POSE:\n" << robot_pose << "\n" <<
+                        "TAG_POSE:\n" << image);
     }
 }
 
