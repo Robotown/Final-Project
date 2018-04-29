@@ -34,6 +34,10 @@ void camera_callback(const logical_camera_plugin::logicalImage &image)
         tag_pose.orientation.w = correct_angle(image.pose_rot_w + robot_pose.orientation.w);
 
         ROS_INFO_STREAM("Found tag: " << image.modelName << '\n' << tag_pose);
+
+        ROS_INFO_STREAM("\n-----DEBUG-----" <<
+                        "ROBOT_POSE:\n" << robot_pose << "\n\n" <<
+                        "TAG_POSE:\n" << tag_pose << "\n");
     }
 }
 
