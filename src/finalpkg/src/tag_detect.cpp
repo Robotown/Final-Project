@@ -1,15 +1,45 @@
 #include <ros/ros.h>
 #include <logical_camera_plugin/logicalImage.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+
+geometry_msgs::Pose robot_pose;
+std::vector<std::string> found_tags;
+
+double correct_angle(double angle)
+{
+    while (angle > 2*M_PI)
+        angle -= 2*M_PI;
+    while (angle < 0)
+        angle += 2*M_PI;
+    return angle;
+}
 
 void camera_callback(const logical_camera_plugin::logicalImage &image)
 {
-    return;
+    if (std::find(found_tags.begin(), found_tags.end(), image.modelName) == found_tags.end()) {
+        found_tags.push_back(image.modelName);
+
+        geometry_msgs::Pose tag_pose;
+        tag_pose.position.x = image.pose_pos_x + robot_pose.position.x;
+        tag_pose.position.y = image.pose_pos_y + robot_pose.position.y;
+        tag_pose.position.z = image.pose_pos_z + robot_pose.position.z;
+
+        tag_pose.orientation.x = correct_angle(image.pose_rot_x + robot_pose.orientation.x);
+        tag_pose.orientation.y = correct_angle(image.pose_rot_y + robot_pose.orientation.y);
+        tag_pose.orientation.z = correct_angle(image.pose_rot_z + robot_pose.orientation.z);
+        tag_pose.orientation.w = correct_angle(image.pose_rot_w + robot_pose.orientation.w);
+
+        ROS_INFO_STREAM("Found tag: " << image.modelName << '\n' << tag_pose);
+    }
 }
 
 void pose_callback(const geometry_msgs::PoseWithCovarianceStamped &pose)
 {
-    return;
+    robot_pose = pose.pose.pose;
 }
 
 int main(int argc, char* argv[])

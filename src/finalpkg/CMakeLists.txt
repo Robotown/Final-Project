@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   actionlib
   actionlib_msgs
+  logical_camera_plugin
 )
 
 ## System dependencies are found with CMake's conventions
