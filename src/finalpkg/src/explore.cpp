@@ -120,6 +120,10 @@ int main(int argc, char **argv)
             rate.sleep();
             pubTwist.publish(twistMsg); 
             rate.sleep();
+            pubTwist.publish(twistMsg); 
+            rate.sleep();
+            pubTwist.publish(twistMsg); 
+            rate.sleep();
             ac.sendGoal(goal);
         }
 
