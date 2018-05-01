@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib_msgs
   logical_camera_plugin
   tf2
+  tf2_ros
 )
 
 ## System dependencies are found with CMake's conventions
