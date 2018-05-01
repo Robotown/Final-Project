@@ -5,5 +5,5 @@
   <include file="$(find finalpkg)/launch/navigation.launch" />
   
   <node pkg="finalpkg" name="explore" type="explore" output="screen" />
-  <node pkg="finalpkg" name="tag_detect" type="tag_detect" output="screen" />
+  <node pkg="finalpkg" name="tag_detect" type="tag_detect" output="screen" respawn="true" />
 </launch>
