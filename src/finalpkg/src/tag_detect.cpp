@@ -41,6 +41,7 @@ void camera_callback(const logical_camera_plugin::logicalImage &image)
 
         geometry_msgs::TransformStamped image_transform;
         tf2::convert( tf2::Transform(image_orientation, image_position), image_transform.transform );
+
         image_transform.header.stamp = ros::Time::now();
         image_transform.header.frame_id = "base_link";
         image_transform.child_frame_id = image.modelName;
@@ -50,9 +51,6 @@ void camera_callback(const logical_camera_plugin::logicalImage &image)
         
         
         ROS_INFO_STREAM("Found tag: " << image.modelName << '\n' << tag_pose);
-
-        ROS_DEBUG_STREAM("\n-----DEBUG-----" << "\n" <<
-                         "TAG_POSE:\n" << image);
     }
 
 }
@@ -64,7 +62,7 @@ int main(int argc, char* argv[])
 
     ros::Subscriber subCamera = nh.subscribe("/objectsDetected", 1000, &camera_callback);
 
-    tf2_ros::TransformListener tf_listener(buffer, nh);
+    tf2_ros::TransformListener tf_listener(buffer);
 
     ros::spin();
 
