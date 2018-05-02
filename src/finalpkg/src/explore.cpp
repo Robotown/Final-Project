@@ -53,6 +53,11 @@ void addRegions(std::vector<geometry_msgs::PolygonStamped> &regions)
         regions.push_back(region);
     }
 
+    std::swap(regions[0], regions[4]);
+    std::swap(regions[3], regions[5]);
+    std::swap(regions[4], regions[8]);
+    std::swap(regions[5], regions[7]);
+
 }
 
 
@@ -85,8 +90,8 @@ int main(int argc, char **argv)
     regions[i].header.stamp = ros::Time::now();
     regions[i].header.frame_id = "map";
     goal.explore_center.header.frame_id = "map";
-    goal.explore_center.point.x = 6.0;
-    goal.explore_center.point.y = 6.0;
+    goal.explore_center.point.x = 0.0;
+    goal.explore_center.point.y = 0.0;
     goal.explore_center.point.z = 0.0;
     goal.explore_boundary = regions[i];
     ac.sendGoal(goal);
@@ -102,12 +107,8 @@ int main(int argc, char **argv)
             regions[i].header.frame_id = "map";
             goal.explore_center.header.frame_id = "map";
 
-            if(goal.explore_center.point.y != -6.0){
-                goal.explore_center.point.y -= 6.0;
-            }else{
-                goal.explore_center.point.y = 6.0;
-                goal.explore_center.point.x -= 6.0;
-            }
+            goal.explore_center.point.x = int (regions[i].polygon.points[0].x + regions[i].polygon.points[2].x) / 2;
+            goal.explore_center.point.y = int (regions[i].polygon.points[0].y + regions[i].polygon.points[2].y) / 2;
 
             goal.explore_boundary = regions[i];
 

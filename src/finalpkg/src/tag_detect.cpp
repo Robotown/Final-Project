@@ -47,7 +47,7 @@ void camera_callback(const logical_camera_plugin::logicalImage &image)
         image_transform.child_frame_id = image.modelName;
         
         geometry_msgs::PoseStamped tag_pose;
-        tf2::convert( buffer.transform(image_transform, "map"), tag_pose );
+        tf2::convert( buffer.transform(image_transform, "map", ros::Duration(1.0)), tag_pose );
         
         
         ROS_INFO_STREAM("Found tag: " << image.modelName << '\n' << tag_pose);
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 
     ros::Subscriber subCamera = nh.subscribe("/objectsDetected", 1000, &camera_callback);
 
-    tf2_ros::TransformListener tf_listener(buffer);
+    tf2_ros::TransformListener tf_listener(buffer, nh);
 
     ros::spin();
 
