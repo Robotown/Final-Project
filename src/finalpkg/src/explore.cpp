@@ -107,8 +107,11 @@ int main(int argc, char **argv)
             regions[i].header.frame_id = "map";
             goal.explore_center.header.frame_id = "map";
 
-            goal.explore_center.point.x = int (regions[i].polygon.points[0].x + regions[i].polygon.points[2].x) / 2;
-            goal.explore_center.point.y = int (regions[i].polygon.points[0].y + regions[i].polygon.points[2].y) / 2;
+            // goal.explore_center.point.x = int (regions[i].polygon.points[0].x + regions[i].polygon.points[2].x) / 2;
+            // goal.explore_center.point.y = int (regions[i].polygon.points[0].y + regions[i].polygon.points[2].y) / 2;
+
+            goal.explore_center.point.x = int (regions[i].polygon.points[1].x) - 1;
+            goal.explore_center.point.y = int (regions[i].polygon.points[1].y) + 1;
 
             goal.explore_boundary = regions[i];
 

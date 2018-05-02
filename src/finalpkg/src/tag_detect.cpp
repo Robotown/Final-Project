@@ -40,7 +40,7 @@ void camera_callback(const logical_camera_plugin::logicalImage &image)
                                                             image.pose_rot_w);
 
         geometry_msgs::TransformStamped image_transform;
-        tf2::convert( tf2::Transform(image_orientation, image_position, ros::Duration(1.0)), image_transform.transform );
+        tf2::convert( tf2::Transform(image_orientation, image_position), image_transform.transform );
 
         image_transform.header.stamp = ros::Time::now();
         image_transform.header.frame_id = "base_link";
