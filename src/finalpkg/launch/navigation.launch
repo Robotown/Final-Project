@@ -12,7 +12,7 @@
         <rosparam ns="explore_costmap" subst_value="true">
             footprint: [[-0.5, -0.33], [-0.5, 0.33], [0.5, 0.33], [0.5, -0.33]]
 
-            footprint_padding: 0.5
+            footprint_padding: 0.4
 
             transform_tolerance: 5.0
             update_frequency: 5.0
@@ -48,7 +48,7 @@
 
             sensor:
                 observation_sources: laser
-                laser: {data_type: LaserScan, clearing: true, marking: true, topic: scan, inf_is_valid: true, raytrace_range: 1.75, obstacle_range: 4.0}
+                laser: {data_type: LaserScan, clearing: true, marking: true, topic: scan, inf_is_valid: true, raytrace_range: 1.5, obstacle_range: 4.0}
 
             inflation:
                 inflation_radius: 1.0

@@ -98,9 +98,12 @@ int main(int argc, char **argv)
 
     ros::Rate rate(2);
 
-    while(i < 9){
+    while(nh.ok()){
 
         if(ac.getState().toString() == "SUCCEEDED"){
+
+            if(i == 8)
+                i = -1;
 
             i++;
             regions[i].header.stamp = ros::Time::now();
